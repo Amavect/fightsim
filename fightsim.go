@@ -35,7 +35,6 @@ var (
 
 func main() {
 	var dice rand.Rand = *rand.New(rand.NewSource(int64(time.Now().Nanosecond())))
-	fmt.Println(dice.Int())
 
 	var fighter1 Fighter
 	var fighter2 Fighter
