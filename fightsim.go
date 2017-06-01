@@ -43,7 +43,7 @@ func main() {
 	var fighter1wins int
 	var fighter2wins int
 
-	for rounds := 1000000; rounds > 0; rounds-- {
+	for rounds := 100000; rounds > 0; rounds-- {
 		fighter1 = minotaur //Change the first attacker.
 		fighter2 = kobold   //Change the second attacker.
 
