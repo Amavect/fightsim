@@ -1,4 +1,5 @@
-// Simple fight simulator.
+// A battle between a kobold and a minotaur.
+// Source inspiration forgotten.
 // How to use:
 // 0: Look for the //comments for help, or ask a question.
 // 1: Copy the example fighter.
@@ -42,9 +43,9 @@ func main() {
 	var fighter1wins int
 	var fighter2wins int
 
-	for rounds := 100000; rounds > 0; rounds-- {
-		fighter1 = minotaur //Change the first attacker.
-		fighter2 = kobold   //Change the second attacker.
+	for rounds := 10000; rounds > 0; rounds-- {
+		fighter1 = kobold //Change the first attacker.
+		fighter2 = minotaur   //Change the second attacker.
 
 		for fighter1.health > 0 && fighter2.health > 0 {
 			attack(&fighter1, &fighter2, &dice)
