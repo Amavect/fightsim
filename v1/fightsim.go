@@ -1,5 +1,6 @@
 // A battle between a kobold and a minotaur.
-// Source inspiration forgotten.
+// Battle is based off of http://i.imgur.com/DxMejXv.png
+// Shoutouts to >>9648141
 // How to use:
 // 0: Look for the //comments for help, or ask a question.
 // 1: Copy the example fighter.
