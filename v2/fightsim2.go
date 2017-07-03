@@ -129,7 +129,7 @@ func main() {
 
 		// Who won?
 		if fighter1.isAlive() && fighter2.isAlive() == true {
-			fmt.Println("Error!")
+			fmt.Println("idk they had tea or something like wtf make a good fight for the bloody crowd")
 		} else if fighter1.isAlive() {
 			fighter1wins++
 		} else if fighter2.isAlive() {
