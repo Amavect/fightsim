@@ -6,10 +6,11 @@
 // 1: Copy the example fighter.
 // 2: Give it a new variable name.
 // 3: Edit the fields in the example fighter.
-// 4: Change what fighter1 and fighter 2 are set to. Look for the //comment. 
+// 4: Change what fighter1 and fighter 2 are set to. Look for the //comment.
 // 5: Run.
 
-package main
+//package main
+package v1
 
 import (
 	"fmt"
@@ -35,6 +36,10 @@ var (
 	kobold   Fighter = Fighter{"Kobold", true, 200, 30, 10, 0.95, 0.5}
 )
 
+func Main() {
+	main()
+}
+
 func main() {
 	var dice rand.Rand = *rand.New(rand.NewSource(int64(time.Now().Nanosecond())))
 
@@ -43,56 +48,60 @@ func main() {
 
 	var fighter1wins int
 	var fighter2wins int
-
-	for rounds := 10000; rounds > 0; rounds-- {
-		fighter1 = kobold //Change the first attacker.
-		fighter2 = minotaur   //Change the second attacker.
+	var nowins int
+	
+	for rounds := 1000000; rounds > 0; rounds-- {
+		fighter1 = kobold   //Change the first attacker.
+		fighter2 = minotaur //Change the second attacker.
 
 		for fighter1.health > 0 && fighter2.health > 0 {
 			attack(&fighter1, &fighter2, &dice)
 			attack(&fighter2, &fighter1, &dice)
 		}
-
-		if fighter1.health > fighter2.health {
+		
+		if fighter1.health <= 0 && fighter2.health <= 0 {
+			nowins++
+		} else if fighter1.health > fighter2.health {
 			fighter1wins++
-		} else {
+		} else if fighter1.health < fighter2.health {
 			fighter2wins++
 		}
 	}
 
-	var totalWins int = fighter1wins + fighter2wins
+	var totalWins int = fighter1wins + fighter2wins + nowins
 	fmt.Println("Total fights:", totalWins)
 	fmt.Println(fighter1.name, "wins:", fighter1wins)
 	fmt.Println(fighter2.name, "wins:", fighter2wins)
+	fmt.Println("Noone wins:", nowins)
 	fmt.Println(fighter1.name, "won", 100.0*float64(fighter1wins)/float64(totalWins), "percent of the time")
 	fmt.Println(fighter2.name, "won", 100.0*float64(fighter2wins)/float64(totalWins), "percent of the time")
+	fmt.Println("Nobody won", 100.0*float64(nowins)/float64(totalWins), "percent of the time")
 }
 
 func attack(attacker *Fighter, defender *Fighter, dice *rand.Rand) {
-	if attacker.isAlive {
-		var attack int = 0
-		if dice.Float64() >= defender.dodgeChance {
-			attack = attacker.attack
-			if attack < 0 {
-				attack = 0
-			}
-		}
-		defense := defender.defense
-		if dice.Float64() < attacker.ignoreDefenseChance {
-			defense = 0
-		}
-		if defense < 0 {
-			defense = 0
-		}
-		damage := attack - defense
-		if damage < 0 {
-			damage = 0
-		}
-
-		defender.health = defender.health - damage
-		if defender.health <= 0 {
-			defender.isAlive = false
+	var attack int = 0
+	if dice.Float64() >= defender.dodgeChance {
+		attack = attacker.attack
+		if attack < 0 {
+			attack = 0
 		}
 	}
+	defense := defender.defense
+	if dice.Float64() < attacker.ignoreDefenseChance {
+		defense = 0
+	}
+	if defense < 0 {
+		defense = 0
+	}
+	damage := attack - defense
+	if damage < 0 {
+		damage = 0
+	}
+
+	defender.health = defender.health - damage
+	if defender.health <= 0 {
+		defender.isAlive = false
+	}
+
 	return
 }
